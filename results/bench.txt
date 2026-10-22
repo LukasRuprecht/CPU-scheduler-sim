@@ -1,0 +1,55 @@
+hardware_concurrency=8  threads=8  reps=9  burn=1.688 ns/iter
+
+[grain] binary task tree, 2^17 leaves, leaf work varies
+  grain          leaf=0it               ws     x8        5.43 ms  [    5.20,     5.62]     24.12 Mtask/s
+  grain          leaf=0it               gq     x8      100.37 ms  [   96.44,   109.15]      1.31 Mtask/s
+                 -> work-stealing is 18.47x the global queue's throughput
+  grain          leaf=100it             ws     x8        7.98 ms  [    7.17,     8.76]     16.42 Mtask/s
+  grain          leaf=100it             gq     x8      162.30 ms  [  155.11,   172.47]      0.81 Mtask/s
+                 -> work-stealing is 20.33x the global queue's throughput
+  grain          leaf=1000it            ws     x8       38.17 ms  [   30.73,    49.59]      3.43 Mtask/s
+  grain          leaf=1000it            gq     x8      361.24 ms  [  332.65,   390.21]      0.36 Mtask/s
+                 -> work-stealing is 9.46x the global queue's throughput
+  grain          leaf=10000it           ws     x8      294.95 ms  [  271.92,   341.52]      0.44 Mtask/s
+  grain          leaf=10000it           gq     x8      589.60 ms  [  499.81,  1135.14]      0.22 Mtask/s
+                 -> work-stealing is 2.00x the global queue's throughput
+  grain          leaf=100000it          ws     x8     2787.67 ms  [ 2718.02,  3644.94]      0.05 Mtask/s
+  grain          leaf=100000it          gq     x8     2986.66 ms  [ 2922.31,  3917.74]      0.04 Mtask/s
+                 -> work-stealing is 1.07x the global queue's throughput
+
+[scaling] binary task tree, 2^17 leaves, leaf=100 iters
+  scaling        leaf=100it             ws     x1       45.35 ms  [   34.53,    99.06]      2.89 Mtask/s
+  scaling        leaf=100it             gq     x1       79.24 ms  [   42.63,   152.45]      1.65 Mtask/s
+                 -> work-stealing is 1.75x the global queue's throughput
+  scaling        leaf=100it             ws     x2       24.57 ms  [   20.46,    31.78]      5.33 Mtask/s
+  scaling        leaf=100it             gq     x2      157.31 ms  [  145.30,   194.58]      0.83 Mtask/s
+                 -> work-stealing is 6.40x the global queue's throughput
+  scaling        leaf=100it             ws     x4       10.37 ms  [    7.52,    18.03]     12.64 Mtask/s
+  scaling        leaf=100it             gq     x4       78.90 ms  [   73.94,   110.23]      1.66 Mtask/s
+                 -> work-stealing is 7.61x the global queue's throughput
+  scaling        leaf=100it             ws     x8        8.50 ms  [    7.61,    10.36]     15.43 Mtask/s
+  scaling        leaf=100it             gq     x8      164.40 ms  [  162.94,   182.08]      0.80 Mtask/s
+                 -> work-stealing is 19.35x the global queue's throughput
+
+[fib] fib(32), sequential below the cutoff
+  fib            sequential             seq    x1       10.83 ms
+  fib            cutoff=10              ws     x8        4.74 ms  [    4.15,     4.95]     15.82 Mtask/s
+  fib            cutoff=10              gq     x8      115.75 ms  [  114.48,   127.29]      0.65 Mtask/s
+                 -> work-stealing is 24.40x the global queue's throughput
+  fib            cutoff=16              ws     x8        2.37 ms  [    1.81,     2.79]      1.76 Mtask/s
+  fib            cutoff=16              gq     x8       15.89 ms  [   14.70,    16.72]      0.26 Mtask/s
+                 -> work-stealing is 6.71x the global queue's throughput
+  fib            cutoff=22              ws     x8        2.68 ms  [    1.90,     2.82]      0.09 Mtask/s
+  fib            cutoff=22              gq     x8        2.41 ms  [    2.12,     2.58]      0.10 Mtask/s
+                 -> work-stealing is 0.90x the global queue's throughput
+
+[flat] one thread spawns 200000 independent tasks
+  flat           task=100it             ws     x8       39.86 ms  [   39.59,    45.11]      5.02 Mtask/s
+  flat           task=100it             gq     x8      460.50 ms  [  161.54,   550.92]      0.43 Mtask/s
+                 -> work-stealing is 11.55x the global queue's throughput
+  flat           task=1000it            ws     x8       81.56 ms  [   74.50,   392.57]      2.45 Mtask/s
+  flat           task=1000it            gq     x8      250.33 ms  [  191.62,   380.88]      0.80 Mtask/s
+                 -> work-stealing is 3.07x the global queue's throughput
+
+[stats] tree 2^17 leaf=100it x8: executed=131071 steals=83 (0.06% of tasks) steal_misses=401 sleeps=0
+exit=0
